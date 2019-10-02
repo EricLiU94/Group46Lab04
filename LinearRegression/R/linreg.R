@@ -14,7 +14,7 @@ linreg <- setRefClass("linreg",
                         res_var = "numeric",
                         regression_var = "matrix",
                         t_values = "numeric",
-                        p_value = "matrix"),
+                        p_value = "numeric"),
                       methods = list(
                         initialize = function(formula, data) {
                           input <<- paste("linreg( formula =", deparse(formula), ", data =", deparse(substitute(data)), ")")
@@ -36,8 +36,8 @@ linreg <- setRefClass("linreg",
                           res_value <<- Y -fitted_y
                           
                           f <- dim(X)
-                          p<-2 # two parameters, beta zero and beta one
-                          degrees_of_freedom <<- f[1]-p
+                          p<-f[2]  # two parameters, beta zero and beta one
+                          degrees_of_freedom <<- f[1]-f[2]
                           
                           e<- res_value   # the estimated residue 
                           
@@ -53,8 +53,23 @@ linreg <- setRefClass("linreg",
                           
                           t_values <<-  temptt2 
                           df<- degrees_of_freedom
-                          p_value <<- pt(regres_coef , df)
-                        }
+                          p_value <<- 2*pt(-abs(t_values) , df) 
+                        }, 
+                        
+                        resid = function() {
+                          print(paste("The vector of residuals is")) 
+                          return(res_value)
+                        }, 
+                        
+                        pred= function(){
+                          return(fitted_y)
+                        }, 
+                        
+                        coef= function(){ 
+                          beta<-as.vector(regres_coef )
+                          names(beta)<-rownames(regres_coef)
+                          return(beta)
+                        }   
                       )
 )
 #' A function to print relevant regression output
