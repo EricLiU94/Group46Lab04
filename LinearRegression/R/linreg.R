@@ -57,7 +57,9 @@ linreg <- setRefClass("linreg",
                         resid = function() {
                           print(paste("The vector of residuals is")) 
                           return(res_value)
-                          
+                        }, 
+                        pred= function(){
+                          return(fitted_y)
                         }
                         
                       )
