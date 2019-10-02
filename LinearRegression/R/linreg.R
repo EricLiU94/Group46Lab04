@@ -1,6 +1,6 @@
 #The object
 linreg <- setRefClass("linreg",
-                      fieldvariables <- list(
+                      fields = list(
                         regres_coef = "matrix",
                         fitted_y = "matrix",
                         res_value = "matrix",
