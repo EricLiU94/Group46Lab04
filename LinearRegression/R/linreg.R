@@ -51,7 +51,7 @@ linreg <- setRefClass("linreg",
                           
                           t_values <<-  temptt2 
                           df<- degrees_of_freedom
-                          p_value <<- pt(regres_coef , df) 
+                          p_value <<- 2*pt(-abs(t_values) , df) 
                         }, 
                         
                         resid = function() {
