@@ -6,6 +6,7 @@
 #' @return a linear regression object containing relevant paramters
 linreg <- setRefClass("linreg",
                       fields = list(
+                        input = "character",
                         regres_coef = "matrix",
                         fitted_y = "matrix",
                         res_value = "matrix",
@@ -16,6 +17,7 @@ linreg <- setRefClass("linreg",
                         p_value = "matrix"),
                       methods = list(
                         initialize = function(formula, data) {
+                          input <<- paste("linreg( formula =", deparse(formula), ", data =", deparse(substitute(data)), ")")
                           # the dependent variable
                           X <- model.matrix(formula, data)
                           
@@ -55,3 +57,14 @@ linreg <- setRefClass("linreg",
                         }
                       )
 )
+#' A function to print relevant regression output
+#'
+#' @param x a linreg object
+#' @exportMethod print
+setMethod("print", "linreg", function(x) {
+  cat("Call:\n")
+  cat(noquote(x$input), "\n\n")
+  cat("Coefficients:\n")
+  print(t(x$regres_coef), row.names = FALSE)
+  }
+  )
