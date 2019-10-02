@@ -62,6 +62,6 @@ setMethod("print", "linreg", function(x) {
   cat("Call:\n")
   cat(noquote(x$input), "\n\n")
   cat("Coefficients:\n")
-  print(x$regres_coef, row.names = FALSE)
+  print(t(x$regres_coef), row.names = FALSE)
   }
   )
