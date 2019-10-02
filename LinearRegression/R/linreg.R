@@ -51,7 +51,7 @@ linreg <- setRefClass("linreg",
                           
                           t_values <<-  temptt2 
                           df<- degrees_of_freedom
-                          p_value <<- pt(regres_coef , df)
+                          p_value <<- pt(regres_coef , df) 
                         }, 
                         
                         resid = function() {
@@ -60,7 +60,11 @@ linreg <- setRefClass("linreg",
                         }, 
                         pred= function(){
                           return(fitted_y)
-                        }
-                        
+                        }, 
+                        coef= function(){ 
+                          beta<-as.vector(regres_coef )
+                          
+                          return(beta)
+                        }   
                       )
 )
