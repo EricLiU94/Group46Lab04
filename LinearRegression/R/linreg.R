@@ -34,8 +34,8 @@ linreg <- setRefClass("linreg",
                           res_value <<- Y -fitted_y
                           
                           f <- dim(X)
-                          p<-2 # two parameters, beta zero and beta one
-                          degrees_of_freedom <<- f[1]-p
+                          p<-f[2]  # two parameters, beta zero and beta one
+                          degrees_of_freedom <<- f[1]-f[2]
                           
                           e<- res_value   # the estimated residue 
                           
@@ -52,6 +52,13 @@ linreg <- setRefClass("linreg",
                           t_values <<-  temptt2 
                           df<- degrees_of_freedom
                           p_value <<- pt(regres_coef , df)
+                        }, 
+                        
+                        resid = function() {
+                          print(paste("The vector of residuals is")) 
+                          return(res_value)
+                          
                         }
+                        
                       )
 )
