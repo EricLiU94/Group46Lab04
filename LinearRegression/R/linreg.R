@@ -1,11 +1,12 @@
-#' Perform linear regression
-#' 
-#' @export linreg
-#' @param formula An formula
-#' @param data A data.frame
-#' @return A linear regression in \code{RegressionValues}
-linreg <- function(formula, data) {
-  stopifnot(class(formula) == "formula", is.data.frame(data))
-  RegressionValues <- linreg$new
-  return(RegressionValues)
-}
+#The object
+linreg <- setRefClass("linreg",
+                      fields = list(
+                        regres_coef = "matrix",
+                        fitted_y = "matrix",
+                        res_value = "matrix",
+                        degrees_of_freedom = "numeric",
+                        res_var = "numeric",
+                        regression_var = "numeric",
+                        t_values = "matrix",
+                        p_value = "matrix")
+)
