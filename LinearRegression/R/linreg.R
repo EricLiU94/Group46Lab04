@@ -57,6 +57,9 @@ linreg <- setRefClass("linreg",
                         }
                       )
 )
+#' A function to print relevant regression output
+#'
+#' @param x a linreg object
 #' @exportMethod print
 setMethod("print", "linreg", function(x) {
   cat("Call:\n")
