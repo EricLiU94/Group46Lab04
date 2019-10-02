@@ -1,4 +1,9 @@
-#The object
+#' Linear Regression package
+#' 
+#' @export linreg
+#' @param formula a relation between variables
+#' @param datathe data set containing variable values
+#' @return a linear regression object containing relevant paramters
 linreg <- setRefClass("linreg",
                       fields = list(
                         regres_coef = "matrix",
