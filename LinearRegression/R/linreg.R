@@ -58,12 +58,14 @@ linreg <- setRefClass("linreg",
                           print(paste("The vector of residuals is")) 
                           return(res_value)
                         }, 
+                        
                         pred= function(){
                           return(fitted_y)
                         }, 
+                        
                         coef= function(){ 
                           beta<-as.vector(regres_coef )
-                          
+                          names(beta)<-rownames(regres_coef)
                           return(beta)
                         }   
                       )
