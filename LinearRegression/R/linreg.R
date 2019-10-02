@@ -13,7 +13,7 @@ linreg <- setRefClass("linreg",
                         res_var = "numeric",
                         regression_var = "matrix",
                         t_values = "numeric",
-                        p_value = "matrix"),
+                        p_value = "numeric"),
                       methods = list(
                         initialize = function(formula, data) {
                           # the dependent variable
