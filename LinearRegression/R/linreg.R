@@ -6,9 +6,11 @@
 #' @field res_value, is the residuals, the difference between the sampling points and the estimated value
 #' @field the degree of freedom describe the degress of freedom of the scrutinised system 
 #' @field the residual variance is the variance of the error, between the estimated value and the sampling value 
+#' @field the standard residuals gives a measure of the strength of the difference between observed and expected values
 #' @field The variance of the regression coefficients
 #' @field The t-values for each coefficient
 #' @field The p-values for each coefficient
+#' @field sq_standard_resvec gives the square root of the standard residual vector value
 #' @param formula a relation between variables
 #' @param datathe data set containing variable values
 #' @return a linear regression object containing relevant paramters
@@ -20,6 +22,8 @@ linreg <- setRefClass("linreg",
                         regres_coef = "matrix",
                         fitted_y = "matrix",
                         res_value = "matrix",
+                        standard_resvec = "matrix",
+                        sq_standard_resvec = "matrix",
                         degrees_of_freedom = "numeric",
                         res_var = "numeric",
                         regression_var = "matrix",
@@ -45,7 +49,12 @@ linreg <- setRefClass("linreg",
                           fitted_y <<- X %*% regres_coef
                           
                           res_value <<- Y -fitted_y
+                        
                           
+                          standard_resvec<<- (res_value -mean(res_value))/sd(res_value)
+                          
+                          sq_standard_resvec<<- sq( abs(standard_resvec)) 
+                            
                           f <- dim(X)
                           p<-f[2]  # two parameters, beta zero and beta one
                           degrees_of_freedom <<- f[1]-f[2]
