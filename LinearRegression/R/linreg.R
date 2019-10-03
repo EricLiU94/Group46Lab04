@@ -105,8 +105,8 @@ setMethod("plot", "linreg", function(x) {
           plot.title = element_text(size = 12, hjust = 0.5),
           plot.caption = element_text(size = 12, hjust = 0.5),
           axis.title = element_text(size = 12)) +
-    labs(title = "Residuals vs Fitted", caption = x$input, xlab = "Fitted values", ylab = "Residuals") +
-    geom_point(shape = 1, size = 4, stroke = 2) +
+    labs(title = "Residuals vs Fitted", caption = x$input, x = "Fitted values", y = "Residuals") +
+    geom_point(shape = 1, size = 4, stroke = 1) +
     geom_text(label = ifelse(df$ResidualValues == df$ResidualValues[1], rownames(df), 
                              ifelse(df$ResidualValues == df$ResidualValues[2], rownames(df),
                              ifelse(df$ResidualValues == df$ResidualValues[3], rownames(df),""))), hjust = 1.5, check_overlap = TRUE) +
@@ -128,8 +128,8 @@ setMethod("plot", "linreg", function(x) {
           plot.title = element_text(size = 12, hjust = 0.5),
           plot.caption = element_text(size = 12, hjust = 0.5),
           axis.title = element_text(size = 12)) +
-    labs(title = "Scale-Location", caption = x$input, xlab = "Fitted values", ylab = "Residuals") +
-    geom_point(shape = 1, size = 4, stroke = 2) +
+    labs(title = "Scale-Location", caption = x$input, x = "Fitted values", y = expression(sqrt("|Standardized residuals|"))) +
+    geom_point(shape = 1, size = 4, stroke = 1) +
     geom_text(label = ifelse(df$ResidualValues == df$ResidualValues[1], rownames(df), 
                              ifelse(df$ResidualValues == df$ResidualValues[2], rownames(df),
                                     ifelse(df$ResidualValues == df$ResidualValues[3], rownames(df),""))), hjust = 1.5, check_overlap = TRUE) +
