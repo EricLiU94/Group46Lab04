@@ -1,3 +1,4 @@
+library(ggplot2)
 #' Linear Regression package
 #' 
 #' @export linreg
@@ -82,4 +83,56 @@ setMethod("print", "linreg", function(x) {
   cat("Coefficients:\n")
   print(t(x$regres_coef), row.names = FALSE)
   }
-  )
+)
+
+#' A function to plot the regression output
+#' 
+#' @param x a linreg object
+#' @exportMethod plot
+setMethod("plot", "linreg", function(x) {
+  df <- data.frame(x$res_value, x$fitted_y)
+  colnames(df) <- c("ResidualValues", "FittedValues")
+  df$Difference <- abs(df$ResidualValues)
+  MeanValues <- df[,c(2,1)]
+  MeanValues <- aggregate(df[,1], list(MeanValues$FittedValues), mean)
+  colnames(MeanValues) <- c("FittedValues", "Value")
+  df <- merge(df, MeanValues, by = "FittedValues", all.x = TRUE)
+  df <- df[order(df$Difference, decreasing = TRUE),]
+  ggplot(df, aes(x = FittedValues, y = ResidualValues, label = rownames(df))) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          plot.title = element_text(size = 12, hjust = 0.5),
+          plot.caption = element_text(size = 12, hjust = 0.5),
+          axis.title = element_text(size = 12)) +
+    labs(title = "Residuals vs Fitted", caption = x$input, xlab = "Fitted values", ylab = "Residuals") +
+    geom_point(shape = 1, size = 4, stroke = 2) +
+    geom_text(label = ifelse(df$ResidualValues == df$ResidualValues[1], rownames(df), 
+                             ifelse(df$ResidualValues == df$ResidualValues[2], rownames(df),
+                             ifelse(df$ResidualValues == df$ResidualValues[3], rownames(df),""))), hjust = 1.5, check_overlap = TRUE) +
+    geom_hline(yintercept = 0, linetype = "dotted", color = "grey") +
+    geom_line(aes(y = Value), color = "red")
+  
+  df <- data.frame(sqrt(abs(x$res_value)), x$fitted_y)
+  colnames(df) <- c("ResidualValues", "FittedValues")
+  df$Difference <- abs(df$ResidualValues)
+  MeanValues <- df[,c(2,1)]
+  MeanValues <- aggregate(df[,1], list(MeanValues$FittedValues), mean)
+  colnames(MeanValues) <- c("FittedValues", "Value")
+  df <- merge(df, MeanValues, by = "FittedValues", all.x = TRUE)
+  df <- df[order(df$Difference, decreasing = TRUE),]
+  ggplot(df, aes(x = FittedValues, y = ResidualValues, label = rownames(df))) +
+    theme_bw() +
+    theme(panel.grid.major = element_blank(),
+          panel.grid.minor = element_blank(),
+          plot.title = element_text(size = 12, hjust = 0.5),
+          plot.caption = element_text(size = 12, hjust = 0.5),
+          axis.title = element_text(size = 12)) +
+    labs(title = "Scale-Location", caption = x$input, xlab = "Fitted values", ylab = "Residuals") +
+    geom_point(shape = 1, size = 4, stroke = 2) +
+    geom_text(label = ifelse(df$ResidualValues == df$ResidualValues[1], rownames(df), 
+                             ifelse(df$ResidualValues == df$ResidualValues[2], rownames(df),
+                                    ifelse(df$ResidualValues == df$ResidualValues[3], rownames(df),""))), hjust = 1.5, check_overlap = TRUE) +
+    geom_line(aes(y = Value), color = "red")
+  }
+)
