@@ -1,29 +1,34 @@
 ---
 title: "The Linear Regression Package, Lab Four"
 author: "Lab Group 46: Eric and Julia"
-date:
-output:
-    BiocStyle::html_document:
-    toc: true
-    toc_depth: 3
-    fig_caption: yes
+date: "2019-10-02"
+output: rmarkdown::html_vignette
 
-fontsize: 14pt
-bibliography: bibtex.bib
-
-# R code chunks 
-
+# R code chunks
 
 vignette: >
   %\VignetteIndexEntry{Estimation of Linear Regression Coefficients}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
+
+
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr 
 
 # A General Description of the Linear Regression Package
-<p> This linear regression package is designed to estimate the linear regression coefficients, $\beta_0$ and $\beta_1$ numerically, by using the classic algebraic methods. Two input variables are required, \textbf{data}, contains the intended data set; \textbf{formula}, which defines the included dependent and indepedent variables. All the estimated coefficients, including the linear regression coefficients, the estimated residuals, its variance, the degree of freedom, the t value and the p value, are accessible for the user by typing a few simple commands. 
-</p> 
+This linear regression package is designed to estimate the linear regression coefficients, $\beta_0$ and $\beta_1$ numerically, by using the classic algebraic methods. Two input variables are required, \textbf{data}, contains the intended data set; \textbf{formula}, which defines the included dependent and indepedent variables. All the estimated coefficients, including the linear regression coefficients, the estimated residuals, its variance, the degree of freedom, the t value and the p value, are accessible for the user by typing a few simple commands. 
+ 
 #  Two Informative Examples
-<p> Two datasets have been employed to demonstrate how to use this package, \textbf{Iris} and \textbf{faithful}. 
-</p> 
+Two datasets have been employed to demonstrate how to use this package, __Iris__ and __faithful__.
+
+## One dependent Variable and One Independent Variable 
+The dataset __faithful__ contains two columns, *the eruptions* and *the waiting*. When attempting to extracting a slope, which describes how the magnutide of eruption alters with the change of waiting, for input variable formula would be 
+
+formula<- waiting~eruption
+
+data <- faithful
+
+The computations would be initialised by typing down the following commands 
+
+x<-linreg(formula= waiting~eruption, data=faithful )
+
