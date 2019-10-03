@@ -53,7 +53,7 @@ linreg <- setRefClass("linreg",
                           
                           standard_resvec<<- (res_value -mean(res_value))/sd(res_value)
                           
-                          sq_standard_resvec<<- sq( abs(standard_resvec)) 
+                          sq_standard_resvec<<- sqrt(abs(standard_resvec)) 
                             
                           f <- dim(X)
                           p<-f[2]  # two parameters, beta zero and beta one
