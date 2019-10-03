@@ -16,4 +16,31 @@ a linear regression object containing relevant paramters
 \description{
 Linear Regression package
 }
+\section{Fields}{
 
+\describe{
+\item{\code{regres_coef}}{contains the estimated beta value. If the scrutinised system contains one dependent variable, the number of element in regres_coef is two, beta_zero and beta one. On the other hand, if two dependent variables are included, the number of beta elements would be three.}
+
+\item{\code{fitted_y,}}{is the estimated value, using the regression coefficients}
+
+\item{\code{res_value,}}{is the residuals, the difference between the sampling points and the estimated value}
+
+\item{\code{the}}{degree of freedom describe the degress of freedom of the scrutinised system}
+
+\item{\code{the}}{residual variance is the variance of the error, between the estimated value and the sampling value}
+
+\item{\code{the}}{standard residuals gives a measure of the strength of the difference between observed and expected values}
+
+\item{\code{The}}{variance of the regression coefficients}
+
+\item{\code{The}}{t-values for each coefficient}
+
+\item{\code{The}}{p-values for each coefficient}
+
+\item{\code{sq_standard_resvec}}{gives the square root of the standard residual vector value}
+}}
+
+
+\references{
+\url{https://towardsdatascience.com/linear-regression-detailed-view-ea73175f6e86}
+}
