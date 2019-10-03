@@ -7,7 +7,7 @@ Author: c(person("Eric", "Kamphuis", email = "erika464@student.liu.se", role = c
           person("Julia, "Lindohf", email = "julso810@student.liu.se", role = c("aut", "cre")))
 Maintainer: Eric Kamphuis <erika464@student.liu.se>
 Description: At the moment the package does not do anything.
-Depends: methods, R (>= 3.5.0)
+Depends: R (>= 3.5.0)
 Imports: ggplot2
 License: GPL-3
 Encoding: UTF-8
