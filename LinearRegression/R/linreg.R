@@ -4,11 +4,15 @@
 #' @field regres_coef contains the estimated beta value. If the scrutinised system contains one dependent variable, the number of element in regres_coef is two, beta_zero and beta one. On the other hand, if two dependent variables are included, the number of beta elements would be three. 
 #' @field fitted_y, is the estimated value, using the regression coefficients
 #' @field res_value, is the residuals, the difference between the sampling points and the estimated value
-#' @field the degree of freedom is
-#' @field
+#' @field the degree of freedom describe the degress of freedom of the scrutinised system 
+#' @field the residual variance is the variance of the error, between the estimated value and the sampling value 
+#' @field The variance of the regression coefficients
+#' @field The t-values for each coefficient
+#' @field The p-values for each coefficient
 #' @param formula a relation between variables
 #' @param datathe data set containing variable values
 #' @return a linear regression object containing relevant paramters
+#' @references \url{https://towardsdatascience.com/linear-regression-detailed-view-ea73175f6e86}
 linreg <- setRefClass("linreg",
                       fields = list(
                         input = "character",
@@ -80,7 +84,7 @@ linreg <- setRefClass("linreg",
                         summary=function() { 
                           l1<-length(p_value)
                           l2<-1:l1
-                          cat("The Included Regression Coefficients:\n")
+                          cat("The Included Regression Coefficients are:\n")
                           cat("           ", "coefficients", "residuals", "  t-value", " p-value", "\n")
                           for (i in l2){
                             cat(var_name[i], format(regres_coef[i], digits = 5),format(res_value[i], digits = 5),
