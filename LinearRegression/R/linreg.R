@@ -1,12 +1,18 @@
 #' Linear Regression package
 #' 
 #' @export linreg
+#' @field regres_coef contains the estimated beta value. If the scrutinised system contains one dependent variable, the number of element in regres_coef is two, beta_zero and beta one. On the other hand, if two dependent variables are included, the number of beta elements would be three. 
+#' @field fitted_y, is the estimated value, using the regression coefficients
+#' @field res_value, is the residuals, the difference between the sampling points and the estimated value
+#' @field the degree of freedom is
+#' @field
 #' @param formula a relation between variables
 #' @param datathe data set containing variable values
 #' @return a linear regression object containing relevant paramters
 linreg <- setRefClass("linreg",
                       fields = list(
                         input = "character",
+                        var_name = "character",
                         regres_coef = "matrix",
                         fitted_y = "matrix",
                         res_value = "matrix",
@@ -20,6 +26,7 @@ linreg <- setRefClass("linreg",
                           input <<- paste("linreg( formula =", deparse(formula), ", data =", deparse(substitute(data)), ")")
                           # the dependent variable
                           X <- model.matrix(formula, data)
+                          var_name <<- colnames(X)
                           
                           # extarcting the independent variable
                           t1 <- all.vars(formula)
@@ -69,7 +76,23 @@ linreg <- setRefClass("linreg",
                           beta<-as.vector(regres_coef )
                           names(beta)<-rownames(regres_coef)
                           return(beta)
-                        }   
+                        },
+                        summary=function() { 
+                          l1<-length(p_value)
+                          l2<-1:l1
+                          cat("The Included Regression Coefficients:\n")
+                          cat("           ", "coefficients", "residuals", "  t-value", " p-value", "\n")
+                          for (i in l2){
+                            cat(var_name[i], format(regres_coef[i], digits = 5),format(res_value[i], digits = 5),
+                                format(t_values[i], digits = 5), format(p_value[i], digits = 5),sep = "   ")
+                            cat("\n")
+                          }
+                          cat("\n")
+                          cat("The estimated residual variance is:", round(sqrt(res_var ), digits = 5))
+                          cat("\n")
+                          cat("The expected degree of freedom is:", degrees_of_freedom  )
+                          cat("\n")
+                        }
                       )
 )
 #' A function to print relevant regression output
