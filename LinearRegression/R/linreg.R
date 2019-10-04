@@ -2,15 +2,16 @@ library(ggplot2)
 #' Linear Regression package
 #' 
 #' @export linreg
+#' @field input, the input variables, formula and data
 #' @field regres_coef contains the estimated beta value. If the scrutinised system contains one dependent variable, the number of element in regres_coef is two, beta_zero and beta one. On the other hand, if two dependent variables are included, the number of beta elements would be three. 
 #' @field fitted_y, is the estimated value, using the regression coefficients
 #' @field res_value, is the residuals, the difference between the sampling points and the estimated value
-#' @field the degree of freedom describe the degress of freedom of the scrutinised system 
-#' @field the residual variance is the variance of the error, between the estimated value and the sampling value 
-#' @field the standard residuals gives a measure of the strength of the difference between observed and expected values
-#' @field The variance of the regression coefficients
-#' @field The t-values for each coefficient
-#' @field The p-values for each coefficient
+#' @field degrees_of_freedom, the degree of freedom describe the degress of freedom of the scrutinised system 
+#' @field res_value, the residual variance is the variance of the error, between the estimated value and the sampling value 
+#' @field standard_resvec, the standard residuals gives a measure of the strength of the difference between observed and expected values
+#' @field res_var, the variance of the regression coefficients
+#' @field t_values, the t-values for each coefficient
+#' @field p_value, the p-values for each coefficient
 #' @field sq_standard_resvec gives the square root of the standard residual vector value
 #' @param formula a relation between variables
 #' @param datathe data set containing variable values
@@ -32,7 +33,7 @@ linreg <- setRefClass("linreg",
                         p_value = "numeric"),
                       methods = list(
                         initialize = function(formula, data) {
-                          input <<- paste("linreg( formula =", deparse(formula), ", data =", deparse(substitute(data)), ")")
+                          input <<- paste("linreg(formula = ", deparse(formula), ", data = ", deparse(substitute(data)), ")", sep = "")
                           # the dependent variable
                           X <- model.matrix(formula, data)
                           var_name <<- colnames(X)
@@ -74,10 +75,11 @@ linreg <- setRefClass("linreg",
                           
                           t_values <<-  temptt2 
                           df<- degrees_of_freedom
-                          p_value <<- 2*pt(-abs(t_values) , df) 
+                          p_value <<- 2*pt(-abs(t_values) , df)
                         }, 
                         
                         print = function() {
+                          'This is a print out function, which outlines the regression coefficients of the given system'
                           cat("Call:\n")
                           cat(noquote(input), "\n\n")
                           cat("Coefficients:\n")
@@ -85,6 +87,7 @@ linreg <- setRefClass("linreg",
                         },
                         
                         plot = function() {
+                          'This is a plotting function, which outlines the residuals and the fitted values'  
                           df <- data.frame(x$res_value, x$fitted_y)
                           colnames(df) <- c("ResidualValues", "FittedValues")
                           df$Difference <- abs(df$ResidualValues)
@@ -136,35 +139,35 @@ linreg <- setRefClass("linreg",
                         },
                         
                         resid = function() {
-                          print(paste("The vector of residuals is")) 
-                          return(res_value)
+                          'This method returns a vector of, which contains the estimated residuals'   
+                          return(as.vector(res_value))
                         }, 
                         
                         pred = function(){
+                          'This method returns the estimated fitted value, as a vector'  
                           return(fitted_y)
                         }, 
                         
                         coef = function(){ 
+                          'This method returns the regression coefficients as a named vector'  
                           beta <- as.vector(regres_coef )
                           names(beta)<-rownames(regres_coef)
                           return(beta)
                         },
                         
                         summary =function() { 
+                          'This method summarises all included coefficients in the regression computation.'  
                           l1<-length(p_value)
                           l2<-1:l1
                           cat("The Included Regression Coefficients are:\n")
-                          cat("           ", "coefficients", "residuals", "  t-value", " p-value", "\n")
+                          cat("           ", "coeffi.", "s. error", "t-value", "p-value", "\n")
                           for (i in l2){
-                            cat(var_name[i], format(regres_coef[i], digits = 5),format(res_value[i], digits = 5),
-                                format(t_values[i], digits = 5), format(p_value[i], digits = 5),sep = "   ")
+                            cat(var_name[i], format(regres_coef[i], digits = 5),format(sqrt(regression_var[i,i]), digits = 5),
+                                format(t_values[i], digits = 5), format(p_value[i], digits = 5), "****", sep = " ")
                             cat("\n")
                           }
                           cat("\n")
-                          cat("The estimated residual variance is:", round(sqrt(res_var ), digits = 5))
-                          cat("\n")
-                          cat("The expected degree of freedom is:", degrees_of_freedom  )
-                          cat("\n")
+                          cat("Residual standard error:", round(sqrt(res_var ), digits = 5), "on", degrees_of_freedom, "degrees of freedom", sep = " ")
                         }
                       )
 )
