@@ -32,7 +32,7 @@ linreg <- setRefClass("linreg",
                         p_value = "numeric"),
                       methods = list(
                         initialize = function(formula, data) {
-                          input <<- paste("linreg( formula =", deparse(formula), ", data =", deparse(substitute(data)), ")")
+                          input <<- paste("linreg(formula = ", deparse(formula), ", data = ", deparse(substitute(data)), ")", sep = "")
                           # the dependent variable
                           X <- model.matrix(formula, data)
                           var_name <<- colnames(X)
@@ -136,8 +136,7 @@ linreg <- setRefClass("linreg",
                         },
                         
                         resid = function() {
-                          print(paste("The vector of residuals is")) 
-                          return(res_value)
+                          return(as.vector(res_value))
                         }, 
                         
                         pred = function(){
