@@ -74,7 +74,7 @@ linreg <- setRefClass("linreg",
                           
                           t_values <<-  temptt2 
                           df<- degrees_of_freedom
-                          p_value <<- 2*pt(-abs(t_values) , df) 
+                          p_value <<- 2*pt(-abs(t_values) , df)
                         }, 
                         
                         print = function() {
@@ -153,17 +153,14 @@ linreg <- setRefClass("linreg",
                           l1<-length(p_value)
                           l2<-1:l1
                           cat("The Included Regression Coefficients are:\n")
-                          cat("           ", "coefficients", "residuals", "  t-value", " p-value", "\n")
+                          cat("           ", "coeffi.", "s. error", "t-value", "p-value", "\n")
                           for (i in l2){
-                            cat(var_name[i], format(regres_coef[i], digits = 5),format(res_value[i], digits = 5),
-                                format(t_values[i], digits = 5), format(p_value[i], digits = 5),sep = "   ")
+                            cat(var_name[i], format(regres_coef[i], digits = 5),format(sqrt(regression_var[i,i]), digits = 5),
+                                format(t_values[i], digits = 5), format(p_value[i], digits = 5), "****", sep = " ")
                             cat("\n")
                           }
                           cat("\n")
-                          cat("The estimated residual variance is:", round(sqrt(res_var ), digits = 5))
-                          cat("\n")
-                          cat("The expected degree of freedom is:", degrees_of_freedom  )
-                          cat("\n")
+                          cat("Residual standard error:", round(sqrt(res_var ), digits = 5), "on", degrees_of_freedom, "degrees of freedom", sep = " ")
                         }
                       )
 )

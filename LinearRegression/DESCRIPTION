@@ -12,7 +12,5 @@ Imports: ggplot2
 License: GPL-3
 Encoding: UTF-8
 RoxygenNote: 6.1.1
-Suggests: knitr,
-    rmarkdown,
-    testthat
+Suggests: knitr, rmarkdown, testthat
 VignetteBuilder: knitr

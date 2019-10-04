@@ -1,0 +1,87 @@
+---
+title: "The Linear Regression Package, Lab Four"
+author: "Lab Group 46: Eric and Julia"
+date: "2019-10-02"
+output: rmarkdown::html_vignette
+
+
+vignette: >
+  %\VignetteIndexEntry{Estimation of Linear Regression Coefficients}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+  +simple_tables
+library(LinearRegression)
+
+# A General Description of the Linear Regression Package
+This linear regression package is designed to estimate the linear regression coefficients, $\beta_0$ and $\beta_1$ numerically, by using the classic algebraic methods. Two input variables are required, \textbf{data}, contains the intended data set; \textbf{formula}, which defines the included dependent and indepedent variables. All the estimated coefficients, including the linear regression coefficients, the estimated residuals, its variance, the degree of freedom, the t value and the p value, are accessible for the user by typing a few simple commands. 
+ 
+#  Two Informative Examples
+Two datasets have been employed to demonstrate how to use this package, __Iris__ and __faithful__.
+
+## One dependent Variable and One Independent Variable 
+The dataset __faithful__ contains two columns, *the eruptions* and *the waiting* and 272 observation points. When attempting to extracting a slope, which describes how the magnutide of eruption alters with the change of waiting, for input variable formula would be 
+
+formula<- waiting~eruptions
+
+data <- faithful
+
+The computations would be initialised by typing down the following commands 
+
+x<-linreg(formula= waiting~eruptions, data=faithful)
+
+To being with, the summary of the most important results from the computations could be obtained by typing the following
+
+x$summary() 
+
+The expected results for this particular example is 
+
+The Included Regression Coefficients are:
+
+              coefficients   residuals    t-value    p-value 
+-----------   -------------  -----------  --------  ---------- 
+(Intercept)   33.474         6.8989       28.985    7.136e-85
+eruptions     10.73          1.2122       34.089    8.13e-100
+ 
+The estimated residual variance is: 5.91401
+
+The expected degree of freedom is: 270
+
+Secondly, the graphic representation could be easily obtained by typing the following: 
+
+x$plot() 
+
+Next, if the only parameters, which are needed are the regression coefficients, type the following:
+  
+x$coef()   
+
+The computed value is: 
+
+x$pred()  
+
+The obvious difference between the extracted value and the original sampling values through the entire process could be obtained by typing the following: 
+
+x$resid()   
+
+
+## Two or More Dependent Variables 
+In the second example, the object of scrutiny, __Iris__ dataset, contains a number of columns and 150 observation points. When attempting to calculate the regressions between two or more independent variables and a dependent variable, the formula should be declared in a slightly different fashion. 
+
+formula <- Petal.Length~Sepal.Width+Sepal.Length 
+
+The computation could be initialised by typing: 
+
+x<-linreg(formula= Petal.Length~Sepal.Width+Sepal.Length, data=iris)
+
+The summary of the results would be: 
+
+The Included Regression Coefficients are:
+  
+              coefficients    residuals    t-value      p-value 
+-----------   -------------  -----------  --------      ----------             
+(Intercept)   -2.5248         -0.44558     -4.481       1.484e-05
+Sepal.Width   -1.3386         -0.75977     -10.94       9.4292e-21
+Sepal.Length   1.7756         -0.23693     27.569       5.8479e-60
+
+The estimated residual variance is: 0.64648
+
+The expected degree of freedom is: 147
