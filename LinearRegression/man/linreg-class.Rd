@@ -19,27 +19,44 @@ Linear Regression package
 \section{Fields}{
 
 \describe{
+\item{\code{input,}}{the input variables, formula and data}
+
 \item{\code{regres_coef}}{contains the estimated beta value. If the scrutinised system contains one dependent variable, the number of element in regres_coef is two, beta_zero and beta one. On the other hand, if two dependent variables are included, the number of beta elements would be three.}
 
 \item{\code{fitted_y,}}{is the estimated value, using the regression coefficients}
 
 \item{\code{res_value,}}{is the residuals, the difference between the sampling points and the estimated value}
 
-\item{\code{the}}{degree of freedom describe the degress of freedom of the scrutinised system}
+\item{\code{degrees_of_freedom,}}{the degree of freedom describe the degress of freedom of the scrutinised system}
 
-\item{\code{the}}{residual variance is the variance of the error, between the estimated value and the sampling value}
+\item{\code{res_value,}}{the residual variance is the variance of the error, between the estimated value and the sampling value}
 
-\item{\code{the}}{standard residuals gives a measure of the strength of the difference between observed and expected values}
+\item{\code{standard_resvec,}}{the standard residuals gives a measure of the strength of the difference between observed and expected values}
 
-\item{\code{The}}{variance of the regression coefficients}
+\item{\code{res_var,}}{the variance of the regression coefficients}
 
-\item{\code{The}}{t-values for each coefficient}
+\item{\code{t_values,}}{the t-values for each coefficient}
 
-\item{\code{The}}{p-values for each coefficient}
+\item{\code{p_value,}}{the p-values for each coefficient}
 
 \item{\code{sq_standard_resvec}}{gives the square root of the standard residual vector value}
 }}
 
+\section{Methods}{
+
+\describe{
+\item{\code{coef()}}{This method returns the regression coefficients as a named vector}
+
+\item{\code{plot()}}{This is a plotting function, which outlines the residuals and the fitted values}
+
+\item{\code{pred()}}{This method returns the estimated fitted value, as a vector}
+
+\item{\code{print()}}{This is a print out function, which outlines the regression coefficients of the given system}
+
+\item{\code{resid()}}{This method returns a vector of, which contains the estimated residuals}
+
+\item{\code{summary()}}{This method summarises all included coefficients in the regression computation.}
+}}
 
 \references{
 \url{https://towardsdatascience.com/linear-regression-detailed-view-ea73175f6e86}

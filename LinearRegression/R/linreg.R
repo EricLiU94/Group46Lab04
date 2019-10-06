@@ -88,7 +88,7 @@ linreg <- setRefClass("linreg",
                         
                         plot = function() {
                           'This is a plotting function, which outlines the residuals and the fitted values'  
-                          df <- data.frame(x$res_value, x$fitted_y)
+                          df <- data.frame(res_value, fitted_y)
                           colnames(df) <- c("ResidualValues", "FittedValues")
                           df$Difference <- abs(df$ResidualValues)
                           MeanValues <- df[,c(2,1)]
@@ -103,7 +103,7 @@ linreg <- setRefClass("linreg",
                                            plot.title = ggplot2::element_text(size = 12, hjust = 0.5),
                                            plot.caption = ggplot2::element_text(size = 12, hjust = 0.5),
                                            axis.title = ggplot2::element_text(size = 12)) +
-                            ggplot2::labs(title = "Residuals vs Fitted", caption = x$input, x = "Fitted values", y = "Residuals") +
+                            ggplot2::labs(title = "Residuals vs Fitted", caption = input, x = "Fitted values", y = "Residuals") +
                             ggplot2::geom_point(shape = 1, size = 4, stroke = 1) +
                             ggplot2::geom_text(label = ifelse(df$ResidualValues == df$ResidualValues[1], rownames(df), 
                                                               ifelse(df$ResidualValues == df$ResidualValues[2], rownames(df),
@@ -112,7 +112,7 @@ linreg <- setRefClass("linreg",
                             ggplot2::geom_hline(yintercept = 0, linetype = "dotted", color = "grey") +
                             ggplot2::geom_line(ggplot2::aes(y = Value), color = "red")
                           
-                          df <- data.frame(x$sq_standard_resvec, x$fitted_y)
+                          df <- data.frame(sq_standard_resvec, fitted_y)
                           colnames(df) <- c("StResidualValues", "FittedValues")
                           df$Difference <- abs(df$StResidualValues)
                           MeanValues <- df[,c(2,1)]
@@ -127,7 +127,7 @@ linreg <- setRefClass("linreg",
                                            plot.title = ggplot2::element_text(size = 12, hjust = 0.5),
                                            plot.caption = ggplot2::element_text(size = 12, hjust = 0.5),
                                            axis.title = ggplot2::element_text(size = 12)) +
-                            ggplot2::labs(title = "Scale-Location", caption = x$input, x = "Fitted values", 
+                            ggplot2::labs(title = "Scale-Location", caption = input, x = "Fitted values", 
                                           y = expression(sqrt("|Standardized residuals|"))) +
                             ggplot2::geom_point(shape = 1, size = 4, stroke = 1) +
                             ggplot2::geom_text(label = ifelse(df$StResidualValues == df$StResidualValues[1], rownames(df), 
