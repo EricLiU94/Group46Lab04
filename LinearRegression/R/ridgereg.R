@@ -2,6 +2,7 @@ library(ggplot2)
 #' Ridge Regression Package
 ridgereg <- setRefClass("ridgereg",
                         fields = list ( 
+                          xnorm = "matrix" 
                           ),
                         methods =list (
                           initialize<- function(formula, data, lambda) {
@@ -16,4 +17,4 @@ ridgereg <- setRefClass("ridgereg",
                             y1 <- data[f1]
                             Y <- as.matrix(y1)
                           }
-                        )
+                        ) ) 
