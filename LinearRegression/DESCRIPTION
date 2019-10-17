@@ -6,7 +6,7 @@ Date: 2019-09-20
 Author: c(person("Eric", "Kamphuis", email = "erika464@student.liu.se", role = c("aut", "cre")),
           person("Julia, "Lindohf", email = "julso810@student.liu.se", role = c("aut", "cre")))
 Maintainer: Eric Kamphuis <erika464@student.liu.se>
-Description: At the moment the package does not do anything.
+Description: The package is designed to calculate the regression coefficients with three methods
 Depends: R (>= 3.5.0)
 Imports: ggplot2
 License: GPL-3
