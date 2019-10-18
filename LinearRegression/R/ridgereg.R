@@ -6,6 +6,7 @@ library(MASS)
 ridgereg <- setRefClass("ridgereg",
                         fields = list ( 
                           var_name = "character",
+                          input = "character",
                           degrees_of_freedom = "numeric",
                           regres_coef = "matrix",
                           fitted_y = "matrix",
@@ -14,6 +15,7 @@ ridgereg <- setRefClass("ridgereg",
                           regression_var = "matrix",
                           res_var = "numeric",
                           t_values = "numeric"),
+                        
                         methods =list (
                           initialize<- function(formula, data, lambda) {
                             X <- model.matrix(formula, data)
@@ -65,10 +67,18 @@ ridgereg <- setRefClass("ridgereg",
                             temptt2<- temptt3 /tempt1
                             
                             t_values <<-  temptt2 
-                            df<- degrees_of_freedom
-                            p_value <<- 2*pt(-abs(t_values) , df)
+                            p_value <<- 2*pt(-abs(t_values) , degrees_of_freedom)
                             
+                            input <<- paste("linreg(formula = ", deparse(formula), ", data = ", deparse(substitute(data)), ")", sep = "")
+                            
+                          }, 
+                          print <- function () {
+                            
+                          },
+                          predict <- function(){
+                            return(fitted_y)
                           }
+                          
                         )
 )
                           
