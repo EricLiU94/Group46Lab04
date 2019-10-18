@@ -2,6 +2,22 @@ library(ggplot2)
 library(MASS)
 #' Ridge Regression Package
 #' @export ridgereg
+#' @field input, the input variables, formula and data
+#' @field var_name the variable names
+#' @field regres_coef contains the estimated beta value. If the scrutinised system contains one dependent variable, the number of element in regres_coef is two, beta_zero and beta one. On the other hand, if two dependent variables are included, the number of beta elements would be three. 
+#' @field fitted_y, is the estimated value, using the regression coefficients
+#' @field res_value, is the residuals, the difference between the sampling points and the estimated value
+#' @field degrees_of_freedom, the degree of freedom describe the degress of freedom of the scrutinised system 
+#' @field res_value, the residual variance is the variance of the error, between the estimated value and the sampling value 
+#' @field standard_resvec, the standard residuals gives a measure of the strength of the difference between observed and expected values
+#' @field res_var, the variance of the regression coefficients
+#' @field t_values, the t-values for each coefficient
+#' @field p_value, the p-values for each coefficient
+#' @field sq_standard_resvec gives the square root of the standard residual vector value
+#' @param formula a relation between variables
+#' @param data the data set containing variable values
+#' @param lambda the penalty coefficient
+#' @return a rigid regression object containing relevant paramters
 #' @description Ridge regression shrinks the regression coefficients by imposing a penalty on their size. The New element in this function is Lambda, the  effective degrees of freedom
 ridgereg <- setRefClass("ridgereg",
                         fields = list ( 
@@ -80,12 +96,12 @@ ridgereg <- setRefClass("ridgereg",
                             base::print(t(regres_coef), row.names = FALSE)
                           },
                           predict <- function(){
-                            ''
+                            ' Retuns the fitted value y, from task 1.1.3'
                             colnames(fitted_y) <- NULL
                             return(t(as.matrix(fitted_y))) 
                           },
                           coef <- function(){ 
-                            ''
+                            'Returns the regression coefficient, as a function of formula, data, also the penalty coefficient, from task 1.1.3 '
                             return(regres_coef)
                           }
                         ) 
