@@ -5,6 +5,7 @@ library(MASS)
 #' @description Ridge regression shrinks the regression coefficients by imposing a penalty on their size. The New element in this function is Lambda, the  effective degrees of freedom
 ridgereg <- setRefClass("ridgereg",
                         fields = list ( 
+                          var_name = "character",
                           degrees_of_freedom = "numeric",
                           regres_coef = "matrix",
                           fitted_y = "matrix",
@@ -50,10 +51,6 @@ ridgereg <- setRefClass("ridgereg",
                             standard_resvec<<- (res_value -mean(res_value))/sd(res_value)
                             
                             sq_standard_resvec<<- sqrt(abs(standard_resvec)) 
-                            
-                            f <- dim(X)
-                            p<-f[2]  # two parameters, beta zero and beta one
-                            degrees_of_freedom <<- f[1]-f[2]
                             
                             e<- res_value   # the estimated residue 
                             
