@@ -8,7 +8,7 @@ Author: c(person("Eric", "Kamphuis", email = "erika464@student.liu.se", role = c
 Maintainer: Eric Kamphuis <erika464@student.liu.se>
 Description: The package is designed to calculate the regression coefficients with three methods
 Depends: R (>= 3.5.0)
-Imports: ggplot2, MASS 
+Imports: methods, nycflights13, dplyr, ggplot2, maps, MASS
 License: GPL-3
 Encoding: UTF-8
 RoxygenNote: 6.1.1
