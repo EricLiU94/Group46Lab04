@@ -1,14 +1,14 @@
 Package: LinearRegression
 Type: Package
 Title: A package to handle linear regression models
-Version: 1.0
-Date: 2019-09-20
+Version: 1.1
+Date: 2019-10-17
 Author: c(person("Eric", "Kamphuis", email = "erika464@student.liu.se", role = c("aut", "cre")),
           person("Julia, "Lindohf", email = "julso810@student.liu.se", role = c("aut", "cre")))
 Maintainer: Eric Kamphuis <erika464@student.liu.se>
-Description: At the moment the package does not do anything.
+Description: The package is designed to calculate the regression coefficients with three methods
 Depends: R (>= 3.5.0)
-Imports: methods, nycflights13, dplyr, ggplot2, maps
+Imports: methods, nycflights13, dplyr, ggplot2, maps, MASS
 License: GPL-3
 Encoding: UTF-8
 RoxygenNote: 6.1.1
