@@ -73,12 +73,21 @@ ridgereg <- setRefClass("ridgereg",
                             
                           }, 
                           print <- function () {
-                            
+                            'This is a print out function, which outlines the regression coefficients of the given system'
+                            cat("Call:\n")
+                            cat(noquote(input), "\n\n")
+                            cat("Coefficients:\n")
+                            base::print(t(regres_coef), row.names = FALSE)
                           },
                           predict <- function(){
-                            return(fitted_y)
+                            ''
+                            colnames(fitted_y) <- NULL
+                            return(t(as.matrix(fitted_y))) 
+                          },
+                          coef <- function(){ 
+                            ''
+                            return(regres_coef)
                           }
-                          
-                        )
+                        ) 
 )
                           
