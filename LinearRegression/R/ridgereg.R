@@ -5,15 +5,19 @@ library(MASS)
 #' @description Ridge regression shrinks the regression coefficients by imposing a penalty on their size. The New element in this function is Lambda, the  effective degrees of freedom
 ridgereg <- setRefClass("ridgereg",
                         fields = list ( 
+                          degrees_of_freedom = "numeric",
                           regres_coef = "matrix",
-                          fitted_y = "matrix"
-                        #  regression_var = "matrix"
-                          ),
+                          fitted_y = "matrix",
+                          standard_resvec = "matrix",
+                          sq_standard_resvec = "matrix",
+                          regression_var = "matrix",
+                          res_var = "numeric",
+                          t_values = "numeric"),
                         methods =list (
                           initialize<- function(formula, data, lambda) {
                             X <- model.matrix(formula, data)
                             var_name <<- colnames(X)
-                            
+                            degrees_of_freedom <<- dim(X)[1]-dim(X)[2]
                             # to calculate the normalised X 
                             templ<- dim(X)[2] 
                             for (i in 2:templ){
@@ -43,6 +47,29 @@ ridgereg <- setRefClass("ridgereg",
                             
                             res_value <- Y -fitted_y # the residue vector 
                             
+                            standard_resvec<<- (res_value -mean(res_value))/sd(res_value)
+                            
+                            sq_standard_resvec<<- sqrt(abs(standard_resvec)) 
+                            
+                            f <- dim(X)
+                            p<-f[2]  # two parameters, beta zero and beta one
+                            degrees_of_freedom <<- f[1]-f[2]
+                            
+                            e<- res_value   # the estimated residue 
+                            
+                            res_var <<- as.numeric(t(e) %*% e)/(degrees_of_freedom) 
+                            
+                            sigma2 <- res_var
+                            regression_var <<- solve(t(X) %*% X)*sigma2
+                            
+                            tempt1 <- sapply(diag(regression_var), sqrt) 
+                            temptt2 <- c(1:length(tempt1))
+                            temptt3<- as.numeric(regres_coef)
+                            temptt2<- temptt3 /tempt1
+                            
+                            t_values <<-  temptt2 
+                            df<- degrees_of_freedom
+                            p_value <<- 2*pt(-abs(t_values) , df)
                             
                           }
                         )
