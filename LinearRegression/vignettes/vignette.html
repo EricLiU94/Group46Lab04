@@ -369,10 +369,12 @@ summary {
 <p>title: “The Linear Regression Package, Lab Four” author: “Lab Group 46: Eric and Julia” date: “2019-10-02” output: rmarkdown::html_vignette</p>
 vignette: &gt; % %
 
-<p>+simple_tables library(LinearRegression)</p>
++simple_tables
+
+<p>library(LinearRegression)</p>
 <div id="a-general-description-of-the-linear-regression-package" class="section level1">
 <h1>A General Description of the Linear Regression Package</h1>
-<p>This linear regression package is designed to estimate the linear regression coefficients, <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> numerically, by using the classic algebraic methods. Two input variables are required, , contains the intended data set; , which defines the included dependent and indepedent variables. All the estimated coefficients, including the linear regression coefficients, the estimated residuals, its variance, the degree of freedom, the t value and the p value, are accessible for the user by typing a few simple commands.</p>
+<p>This linear regression package is designed to estimate the linear regression coefficients, <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> numerically, by using the classic algebraic methods. Two input variables are required, data, contains the intended data set; formula, which defines the included dependent and indepedent variables. All the estimated coefficients, including the linear regression coefficients, the estimated residuals, its variance, the degree of freedom, the t value and the p value, are accessible for the user by typing a few simple commands.</p>
 </div>
 <div id="two-informative-examples" class="section level1">
 <h1>Two Informative Examples</h1>
@@ -474,7 +476,7 @@ vignette: &gt; % %
 </div>
 <div id="a-general-description-of-the-ridge-regression-package" class="section level1">
 <h1>A General Description of the Ridge Regression Package</h1>
-<p>Two ridge regression functions are included in this package.</p>
+<p>A ridge regression function is included in this package, which include the penalty coefficient lambda as well.</p>
 </div>
 
 

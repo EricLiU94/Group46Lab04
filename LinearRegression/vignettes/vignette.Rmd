@@ -10,10 +10,15 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
   +simple_tables
+  \usepackage{bbm}
+  \usepackage{threeparttable}
+  \usepackage{booktabs}
+  \usepackage{expex}
+  
 library(LinearRegression)
 
 # A General Description of the Linear Regression Package
-This linear regression package is designed to estimate the linear regression coefficients, $\beta_0$ and $\beta_1$ numerically, by using the classic algebraic methods. Two input variables are required, \textbf{data}, contains the intended data set; \textbf{formula}, which defines the included dependent and indepedent variables. All the estimated coefficients, including the linear regression coefficients, the estimated residuals, its variance, the degree of freedom, the t value and the p value, are accessible for the user by typing a few simple commands. 
+This linear regression package is designed to estimate the linear regression coefficients, $\beta_0$ and $\beta_1$ numerically, by using the classic algebraic methods. Two input variables are required, data, contains the intended data set; formula, which defines the included dependent and indepedent variables. All the estimated coefficients, including the linear regression coefficients, the estimated residuals, its variance, the degree of freedom, the t value and the p value, are accessible for the user by typing a few simple commands. 
  
 #  Two Informative Examples
 Two datasets have been employed to demonstrate how to use this package, __Iris__ and __faithful__.
@@ -87,4 +92,4 @@ The estimated residual variance is: 0.64648
 The expected degree of freedom is: 147
 
 # A General Description of the Ridge Regression Package
-Two ridge regression functions are included in this package. 
+A ridge regression function is included in this package, which include the penalty coefficient lambda as well.  
