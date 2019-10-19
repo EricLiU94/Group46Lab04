@@ -10,4 +10,4 @@ test_that("class is correct", {
   ridgereg_mod <- ridgereg$new(Petal.Length~Sepal.Width+Sepal.Length, data=iris)
   
   expect_true(class(ridgereg_mod)[1] == "ridgereg")
-})
+}) 
