@@ -11,3 +11,10 @@ test_that("class is correct", {
   
   expect_true(class(ridgereg_mod)[1] == "ridgereg")
 }) 
+
+test_that("print() method works", {
+  ridgereg_mod <- ridgereg$new(Petal.Length~Sepal.Width+Sepal.Length, data=iris)
+  
+  expect_output(lridgereg_mod$print(),"linreg\\(formula = Petal\\.Length ~ Sepal\\.Width \\+ Sepal\\.Length, data = iris\\)")
+  expect_output(ridgereg_mod$print(),"( )*\\(Intercept\\)( )*Sepal\\.Width( )*Sepal\\.Length")
+})
