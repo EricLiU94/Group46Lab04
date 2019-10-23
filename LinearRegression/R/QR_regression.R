@@ -1,12 +1,14 @@
 #' QR Decomposition Calculation 
+#' 
+#' @references: 
 QR_decomp <- setRefClass( "QR_Ridge", 
              fields = list (
                var_name= "character",
-               beta_coef= "matrix"
-               
+               beta_coef1= "matrix",
+               beta_coef_ridge= "matrix"
              ), 
              methods =list(
-               initialize = function (formula, data) {
+               initialize = function (formula, data, lambda) {
                  X <- model.matrix(formula, data) 
                  var_name <<- colnames(X)
                  
@@ -24,7 +26,14 @@ QR_decomp <- setRefClass( "QR_Ridge",
                  
                  # the transpose of the matrix R is
                  TR <- solve(LoQ)
-                 beta_coef <<- TR %*% t(UpQ) %*% Y 
+                 beta_coef1 <<- TR %*% t(UpQ) %*% Y  # beta coefficient, in accordance with QX decomposition method 
+                 
+                 # secondly, it is important to implement the ridged regression methods 
+                 l<- lambda 
+                 t1<- nrow(X)
+                 t2<- ncol(X) 
+                 tempx <- t(X) %*% X + diag(t1*l, t2, t2)
+                 QR <- qr(tempx)  
                  
                }
              )
