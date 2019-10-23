@@ -1,10 +1,11 @@
 #' QR Decomposition Calculation 
 #' 
-#' @references: 
+#' @references \url{https://machinelearningmastery.com/solve-linear-regression-using-linear-algebra/}
 QR_decomp <- setRefClass( "QR_Ridge", 
              fields = list (
                var_name= "character",
                beta_coef1= "matrix",
+               fitted_y = "matrix",
                beta_coef_ridge= "matrix"
              ), 
              methods =list(
@@ -34,7 +35,9 @@ QR_decomp <- setRefClass( "QR_Ridge",
                  t2<- ncol(X) 
                  tempx <- t(X) %*% X + diag(t1*l, t2, t2)
                  QR <- qr(tempx)  
+                 beta_coef_ridge<<- qr.coef(QR, t(X)%*%Y)
                  
+                 fitted_y <<- X %*% beta_coef_ridge
                }
              )
   )
