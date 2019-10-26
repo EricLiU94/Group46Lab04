@@ -92,4 +92,4 @@ The estimated residual variance is: 0.64648
 The expected degree of freedom is: 147
 
 # A General Description of the Ridge Regression Package
-A ridge regression function is included in this package, which include the penalty coefficient lambda as well.  
+A ridge regression function is included in this package, which include the penalty coefficient lambda as well. In the second function,  
