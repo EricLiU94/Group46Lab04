@@ -13,9 +13,16 @@
 QR_decomp <- setRefClass( "QR_Ridge", 
              fields = list (
                var_name= "character",
+               input = "character",
                beta_coef1= "matrix",
                fitted_y = "matrix",
-               beta_coef_ridge= "matrix"
+               beta_coef_ridge= "matrix",
+               standard_resvec = "matrix",
+               sq_standard_resvec = "matrix",
+               regression_var = "matrix",
+               res_var = "numeric",
+               p_value = "numeric",
+               t_values = "numeric"
              ), 
              methods =list(
                initialize = function (formula, data, lambda) {
@@ -47,6 +54,30 @@ QR_decomp <- setRefClass( "QR_Ridge",
                  beta_coef_ridge<<- qr.coef(QR, t(X)%*%Y)
                  
                  fitted_y <<- X %*% beta_coef_ridge
-               }
+                 
+                 res_value <- Y -fitted_y # the residue vector 
+                 
+                 standard_resvec<<- (res_value -mean(res_value))/sd(res_value)
+                 
+                 sq_standard_resvec<<- sqrt(abs(standard_resvec)) 
+                 
+                 e<- res_value   # the estimated residue 
+                 
+                 res_var <<- as.numeric(t(e) %*% e)/(degrees_of_freedom) 
+                 
+                 sigma2 <- res_var
+                 regression_var <<- solve(t(X) %*% X)*sigma2
+                 
+                 tempt1 <- sapply(diag(regression_var), sqrt) 
+                 temptt2 <- c(1:length(tempt1))
+                 temptt3<- as.numeric(regres_coef)
+                 temptt2<- temptt3 /tempt1
+                 
+                 t_values <<-  temptt2 
+                 p_value <<- 2*pt(-abs(t_values) , degrees_of_freedom)
+                 
+                 input <<- paste("linreg(formula = ", deparse(formula), ", data = ", deparse(substitute(data)), ")", sep = "")
+               },
+               
              )
   )

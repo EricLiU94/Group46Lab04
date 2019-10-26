@@ -30,6 +30,7 @@ ridgereg <- setRefClass("ridgereg",
                           sq_standard_resvec = "matrix",
                           regression_var = "matrix",
                           res_var = "numeric",
+                          p_value = "numeric",
                           t_values = "numeric"),
                         
                         methods =list (
