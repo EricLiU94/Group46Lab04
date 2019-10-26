@@ -8,6 +8,7 @@
 #' @param formula 
 #' @param data 
 #' @param lambda the penalty value, which could varies between 0 to 1, for instance 
+#' @description Ridge regression shrinks the regression coefficients by imposing a penalty on their size. The New element in this function is Lambda, the  effective degrees of freedom
 #' @return a ridged QR regression object containing relevant paramters
 #' @references \url{https://machinelearningmastery.com/solve-linear-regression-using-linear-algebra/}
 #' 
@@ -90,12 +91,12 @@ QR_decomp <- setRefClass("QR_Ridge",
                  base::print(t(beta_coef_ridge), row.names = FALSE)
                },
                predict = function(){
-                 ' Retuns the fitted value y, from task 1.1.3'
+                 ' Retuns the fitted value y'
                   colnames(fitted_y) <<- NULL
                  return(t(as.matrix(fitted_y))) 
                },
                coef = function(){ 
-                 'Returns the regression coefficient, as a function of formula, data, also the penalty coefficient, from task 1.1.3 '
+                 'Returns the regression coefficient, as a function of formula, data, also the penalty coefficient'
                  return(beta_coef_ridge)
                }
              )

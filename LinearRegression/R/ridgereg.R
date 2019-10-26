@@ -31,11 +31,13 @@ ridgereg <- setRefClass("ridgereg",
                           regression_var = "matrix",
                           res_var = "numeric",
                           p_value = "numeric",
-                          t_values = "numeric"),
+                          t_values = "numeric" 
+                          ),
                         
                         methods =list (
-                          initialize<- function(formula, data, lambda) {
+                          initialize = function(formula, data, lambda) {
                             X <- model.matrix(formula, data)
+                            degrees_of_freedom <<- dim(X)[1]-dim(X)[2]
                             var_name <<- colnames(X)
                             degrees_of_freedom <<- dim(X)[1]-dim(X)[2]
                             # to calculate the normalised X 
@@ -57,13 +59,14 @@ ridgereg <- setRefClass("ridgereg",
                             # to create an identity matrix I
                             felement <- dim(X)
                             len<- felement[2]
-                            enhet<-matrix(1:(len*len), ncol =len)*0 
+                            enhet<-matrix(1:(len*len), ncol =len)*0
+                            
                             for (i in 1:len){
                               enhet[i,i]=1
                             }
                               
-                            regres_coef <<- (solve(t(X) %*% X) + lambda * enhet) %*% ( t(X) %*% Y)  # the beta coefficient
-                            fitted_y <<- X %*% regres_coef
+                           regres_coef <<- (solve(t(X) %*% X) + lambda * enhet) %*% ( t(X) %*% Y)  # the beta coefficient
+                           fitted_y <<- X %*% regres_coef
                             
                             res_value <- Y -fitted_y # the residue vector 
                             
@@ -86,25 +89,28 @@ ridgereg <- setRefClass("ridgereg",
                             t_values <<-  temptt2 
                             p_value <<- 2*pt(-abs(t_values) , degrees_of_freedom)
                             
-                            input <<- paste("linreg(formula = ", deparse(formula), ", data = ", deparse(substitute(data)), ")", sep = "")
+                            input <<- paste("ridgereg(formula = ", deparse(formula), ", data = ", deparse(substitute(data)), ", lambda = ", deparse(substitute(lambda)), ")", sep = "") 
                             
                           }, 
-                          print <- function () {
+                          
+                          predict = function ( ){
+                            ' Retuns the fitted value y'
+                            colnames(fitted_y) <<- NULL
+                            return(t(as.matrix(fitted_y))) 
+                          },
+                          
+                          print = function ( ) {
                             'This is a print out function, which outlines the regression coefficients of the given system'
                             cat("Call:\n")
                             cat(noquote(input), "\n\n")
                             cat("Coefficients:\n")
                             base::print(t(regres_coef), row.names = FALSE)
-                          },
-                          predict <- function(){
-                            ' Retuns the fitted value y, from task 1.1.3'
-                            colnames(fitted_y) <- NULL
-                            return(t(as.matrix(fitted_y))) 
-                          },
-                          coef <- function(){ 
-                            'Returns the regression coefficient, as a function of formula, data, also the penalty coefficient, from task 1.1.3 '
+                          }, 
+                          coef = function(){ 
+                            'Returns the regression coefficient, as a function of formula, data, also the penalty coefficient '
                             return(regres_coef)
                           }
+                   
                         ) 
 )
                           
