@@ -13,6 +13,10 @@
 #' @return a ridged QR regression object containing relevant paramters
 #' @references \url{https://machinelearningmastery.com/solve-linear-regression-using-linear-algebra/}
 #' 
+install.packages("mlbench")
+install.packages("caret") 
+library(mlbench)
+library(caret)
 QR_decomp <- setRefClass("QR_Ridge", 
              fields = list (
                var_name= "character",
