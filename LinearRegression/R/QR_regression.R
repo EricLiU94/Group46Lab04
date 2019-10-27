@@ -5,6 +5,7 @@
 #' @field beta_coef1 the calculated beta coefficient, by QR composition method 
 #' @field fitted_y, the estimated y value, using the beta coefficient
 #' @field beta_coef_ridge, the estimated y value, using the ridged QR decomposition method 
+#' 
 #' @param formula 
 #' @param data 
 #' @param lambda the penalty value, which could varies between 0 to 1, for instance 
@@ -12,6 +13,10 @@
 #' @return a ridged QR regression object containing relevant paramters
 #' @references \url{https://machinelearningmastery.com/solve-linear-regression-using-linear-algebra/}
 #' 
+install.packages("mlbench")
+install.packages("caret") 
+library(mlbench)
+library(caret)
 QR_decomp <- setRefClass("QR_Ridge", 
              fields = list (
                var_name= "character",
