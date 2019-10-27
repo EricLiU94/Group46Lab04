@@ -14,7 +14,7 @@ library(ggplot2)
 #' @field p_value, the p-values for each coefficient
 #' @field sq_standard_resvec gives the square root of the standard residual vector value
 #' @param formula a relation between variables
-#' @param datathe data set containing variable values
+#' @param data the data set containing variable values
 #' @return a linear regression object containing relevant paramters
 #' @references \url{https://towardsdatascience.com/linear-regression-detailed-view-ea73175f6e86}
 linreg <- setRefClass("linreg",

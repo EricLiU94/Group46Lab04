@@ -1,2 +1,3 @@
 library(testthat)
-test_check("LinearRegression")
+
+test_check("LinearRegression") 
